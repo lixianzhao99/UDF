@@ -1,7 +1,9 @@
 package com.xasz.udf;
 
 import com.aliyun.odps.udf.UDF;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import com.xasz.Utils.AESUtils;
+//import org.apache.commons.codec.binary.Base64;
 
 public class AESUdf extends UDF {
     public String evaluate(String s) {
@@ -12,7 +14,8 @@ public class AESUdf extends UDF {
         try {
             byte[] cipherBytes = AESUtils.encrypt(s.getBytes(), key.getBytes());
             byte[] plainBytes = AESUtils.decrypt(cipherBytes, key.getBytes());
-            return new String(cipherBytes);
+            return Base64.encode(cipherBytes);
+//            return new String(cipherBytes);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -21,7 +24,5 @@ public class AESUdf extends UDF {
         AESUdf aes = new AESUdf();
         String str = aes.evaluate("Hello world!");
         System.out.printf(str);
-        System.out.printf("\n你好\n");
-        System.out.println(System.getProperty("file.encoding"));
     }
 }
