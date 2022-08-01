@@ -4,6 +4,7 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import java.security.SecureRandom;
+import java.util.Base64;
 
 public class AESUtils {
 
@@ -75,7 +76,7 @@ public class AESUtils {
         String key = "Sunshicheng";                  // AES加密/解密用的原始密码
         // 加密数据, 返回密文
         byte[] cipherBytes = AESUtils.encrypt(content.getBytes(), key.getBytes());
-        System.out.println(new String(cipherBytes));
+        System.out.println(Base64.getEncoder().encodeToString(cipherBytes));
         // 解密数据, 返回明文
         byte[] plainBytes = AESUtils.decrypt(cipherBytes, key.getBytes());
         // 输出解密后的明文: "Hello world!"
